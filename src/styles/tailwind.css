@@ -1,0 +1,21 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html,
+  body {
+  }
+  ,
+  a,
+  button,
+  input {
+    @apply focus:outline-none focus-visible:outline-blue;
+  }
+}
+
+@layer components {
+}
+
+@layer utilities {
+}

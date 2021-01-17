@@ -4,7 +4,6 @@ import { useForm } from "react-hook-form";
 import { userOps } from "../domains/user";
 
 type IForm = {
-  name: string;
   email: string;
   password: string;
   passwordConf: string;
@@ -20,7 +19,6 @@ const Signup: NextPage = () => {
 
   return (
     <form onSubmit={handleSubmit(handleSignup)}>
-      <input type="text" name="name" ref={register} />
       <input type="email" name="email" ref={register} />
       <input type="password" name="password" ref={register} />
       <input type="password" name="passwordConf" ref={register} />

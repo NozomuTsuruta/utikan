@@ -36,4 +36,20 @@ type IState = {
 export const userStore = reducerStore<IState>("user", () => ({
   id: null,
   email: "",
-}));
+}))
+  .listen(userAct.setUser, (_, { id, email }) => ({
+    id,
+    email,
+  }))
+  .listen(userAct.signup, (_, { id, email }) => ({
+    id,
+    email,
+  }))
+  .listen(userAct.signin, (_, { id, email }) => ({
+    id,
+    email,
+  }))
+  .listen(userAct.signout, () => ({
+    id: null,
+    email: "",
+  }));

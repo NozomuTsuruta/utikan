@@ -7,8 +7,9 @@ export const itemAct = actions("item", {});
 type IState = {
   id: number;
   name: string;
-  isBest: boolean;
+  isExp: boolean;
   limit: string;
+  num: number;
 };
 
 export const itemStore = reducerStore<IState[]>("item", () => []);

@@ -1,14 +1,9 @@
 import App, { AppProps } from "next/app";
-import { Route } from "../components/Route";
 import { appWithFleurContext, FleurAppContext } from "../lib/fleur";
 import "../styles/tailwind.css";
 
 function MyApp({ Component, pageProps }: AppProps) {
-  return (
-    <Route>
-      <Component {...pageProps} />
-    </Route>
-  );
+  return <Component {...pageProps} />;
 }
 
 MyApp.getInitialProps = async (appContext: FleurAppContext) => {

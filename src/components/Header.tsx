@@ -7,7 +7,7 @@ export const Header = () => {
   };
 
   return (
-    <div>
+    <div className="flex">
       <h1>冷蔵庫マネージャー</h1>
       <button onClick={handleSignout}>サインアウト</button>
     </div>

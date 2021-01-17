@@ -1,5 +1,6 @@
 import { NextPage } from "next";
 import { useForm } from "react-hook-form";
+import { Form } from "../components/Form";
 import { supabase } from "../util/supabase";
 
 type IForm = {
@@ -9,15 +10,18 @@ type IForm = {
 const Forgot: NextPage = () => {
   const { register, handleSubmit } = useForm<IForm>();
 
-  const handleResetPassword = async ({ email }: IForm) => {
-    await supabase.auth.api.resetPasswordForEmail(email);
+  const handleResetPassword = ({ email }: IForm) => {
+    supabase.auth.api.resetPasswordForEmail(email);
   };
 
+  const inputList = [{ type: "email", name: "email", ref: register }];
+
   return (
-    <form onSubmit={handleSubmit(handleResetPassword)}>
-      <input type="email" name="email" ref={register} />
-      <button type="submit">パスワード再設定メール</button>
-    </form>
+    <Form
+      onSubmit={handleSubmit(handleResetPassword)}
+      inputList={inputList}
+      buttonText="パスワード再設定メール送信"
+    />
   );
 };
 

@@ -1,6 +1,7 @@
 import { useFleurContext } from "@fleur/react";
 import { NextPage } from "next";
 import { useForm } from "react-hook-form";
+import { Form } from "../components/Form";
 import { userOps } from "../domains/user";
 
 type IForm = {
@@ -16,12 +17,17 @@ const Signin: NextPage = () => {
     executeOperation(userOps.signin, email, password);
   };
 
+  const inputList = [
+    { type: "email", name: "email", ref: register },
+    { type: "password", name: "password", ref: register },
+  ];
+
   return (
-    <form onSubmit={handleSubmit(handleSignin)}>
-      <input type="email" name="email" ref={register} />
-      <input type="password" name="password" ref={register} />
-      <button type="submit">サインイン</button>
-    </form>
+    <Form
+      onSubmit={handleSubmit(handleSignin)}
+      inputList={inputList}
+      buttonText="サインアップ"
+    />
   );
 };
 

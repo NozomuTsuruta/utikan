@@ -1,6 +1,7 @@
+import { useFleurContext } from "@fleur/react";
 import { NextPage } from "next";
 import { useForm } from "react-hook-form";
-import { supabase } from "../util/supabase";
+import { userOps } from "../domains/user";
 
 type IForm = {
   name: string;
@@ -11,10 +12,10 @@ type IForm = {
 
 const Signup: NextPage = () => {
   const { register, handleSubmit } = useForm<IForm>();
+  const { executeOperation } = useFleurContext();
 
-  const handleSignup = async ({ email, password }: IForm) => {
-    const { user, error } = await supabase.auth.signUp({ email, password });
-    console.log(user);
+  const handleSignup = ({ email, password }: IForm) => {
+    executeOperation(userOps.signup, email, password);
   };
 
   return (

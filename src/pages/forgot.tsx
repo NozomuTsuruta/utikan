@@ -10,10 +10,7 @@ const Forgot: NextPage = () => {
   const { register, handleSubmit } = useForm<IForm>();
 
   const handleResetPassword = async ({ email }: IForm) => {
-    const { data, error } = await supabase.auth.api.resetPasswordForEmail(
-      email
-    );
-    console.log(data);
+    await supabase.auth.api.resetPasswordForEmail(email);
   };
 
   return (

@@ -12,13 +12,13 @@ type IForm = {
 const Signup: NextPage = () => {
   const { register, handleSubmit } = useForm<IForm>();
 
-  const submit = async ({ email, password }: IForm) => {
+  const handleSignup = async ({ email, password }: IForm) => {
     const { user, error } = await supabase.auth.signUp({ email, password });
     console.log(user);
   };
 
   return (
-    <form onSubmit={handleSubmit(submit)}>
+    <form onSubmit={handleSubmit(handleSignup)}>
       <input type="text" name="name" ref={register} />
       <input type="email" name="email" ref={register} />
       <input type="password" name="password" ref={register} />

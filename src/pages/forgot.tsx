@@ -9,7 +9,7 @@ type IForm = {
 const Forgot: NextPage = () => {
   const { register, handleSubmit } = useForm<IForm>();
 
-  const submit = async ({ email }: IForm) => {
+  const handleResetPassword = async ({ email }: IForm) => {
     const { data, error } = await supabase.auth.api.resetPasswordForEmail(
       email
     );
@@ -17,7 +17,7 @@ const Forgot: NextPage = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit(submit)}>
+    <form onSubmit={handleSubmit(handleResetPassword)}>
       <input type="email" name="email" ref={register} />
       <button type="submit">パスワード再設定メール</button>
     </form>

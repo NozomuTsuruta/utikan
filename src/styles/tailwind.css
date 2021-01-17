@@ -5,6 +5,7 @@
 @layer base {
   html,
   body {
+    @apply w-full h-screen;
   }
   ,
   a,
@@ -15,6 +16,12 @@
 }
 
 @layer components {
+  .button {
+    @apply px-6 py-2 text-xs font-medium text-center duration-200 border border-gray-200 hover:opacity-70;
+  }
+  .input {
+    @apply border border-gray-200 p-2 w-full mb-2;
+  }
 }
 
 @layer utilities {

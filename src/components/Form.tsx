@@ -9,11 +9,16 @@ type IProps = {
 
 export const Form: FC<IProps> = ({ onSubmit, buttonText, inputList }) => {
   return (
-    <form onSubmit={onSubmit}>
+    <form onSubmit={onSubmit} className="flex flex-col justify-center px-4">
       {inputList.map((props) => (
-        <input key={props.name} {...props} />
+        <label key={props.name} className="w-auto">
+          <span className="block">{props.name}</span>
+          <input {...props} className="input" />
+        </label>
       ))}
-      <button type="submit">{buttonText}</button>
+      <button className="button" type="submit">
+        {buttonText}
+      </button>
     </form>
   );
 };

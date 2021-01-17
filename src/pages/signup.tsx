@@ -1,3 +1,4 @@
+import { NextPage } from "next";
 import { useForm } from "react-hook-form";
 import { supabase } from "../util/supabase";
 
@@ -8,7 +9,7 @@ type IForm = {
   passwordConf: string;
 };
 
-export default function signup() {
+const Signup: NextPage = () => {
   const { register, handleSubmit } = useForm<IForm>();
 
   const submit = async ({ email, password }: IForm) => {
@@ -22,7 +23,9 @@ export default function signup() {
       <input type="email" name="email" ref={register} />
       <input type="password" name="password" ref={register} />
       <input type="password" name="passwordConf" ref={register} />
-      <button type="submit">サインイン</button>
+      <button type="submit">サインアップ</button>
     </form>
   );
-}
+};
+
+export default Signup;

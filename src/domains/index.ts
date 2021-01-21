@@ -1,10 +1,19 @@
-import Fleur from "@fleur/fleur";
-import { itemStore } from "./item";
-import { AppStore } from "./App";
-import { userStore } from "./user";
+import { applyMiddleware, combineReducers, compose, createStore } from "redux";
+import thunk from "redux-thunk";
+import { containerReducer, IContainer } from "./container";
 
-const app = new Fleur({
-  stores: [AppStore, itemStore, userStore],
-});
+export type RootState = {
+  container: IContainer[];
+};
 
-export const createContext = () => app.createContext();
+export const store = createStore(
+  combineReducers<RootState>({
+    container: containerReducer,
+  }),
+  // redux-dev-toolsを使えるように
+  compose(
+    applyMiddleware(thunk),
+    (window as any).__REDUX_DEVTOOLS_EXTENSION__ &&
+      (window as any).__REDUX_DEVTOOLS_EXTENSION__()
+  )
+);

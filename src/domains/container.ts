@@ -1,12 +1,13 @@
-import { actions, operations, reducerStore } from "@fleur/fleur";
+import actionCreatorFactory from "typescript-fsa";
+import { reducerWithInitialState } from "typescript-fsa-reducers";
 
-export const containerOps = operations({});
+const action = actionCreatorFactory();
 
-export const containerAct = actions("container", {});
+export const containerActions = {};
 
-type IState = {
+export type IContainer = {
   id: number;
   name: string;
 };
 
-export const containerStore = reducerStore<IState[]>("container", () => []);
+export const containerReducer = reducerWithInitialState([]);

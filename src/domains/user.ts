@@ -1,55 +1,52 @@
 import { supabase } from "./../util/supabase";
-import { action, actions, operations, reducerStore } from "@fleur/fleur";
+import actionCreatorFactory from "typescript-fsa";
+import { reducerWithInitialState } from "typescript-fsa-reducers";
+import { Dispatch } from "redux";
 
-export const userOps = operations({
-  setUser(context) {
-    const { id, email } = supabase.auth.user();
-    context.dispatch(userAct.setUser, { id, email });
-  },
-  async signup(context, email: string, password: string) {
-    const { user } = await supabase.auth.signUp({ email, password });
-    await supabase.from("users").insert([{ id: user.id, email: user.email }]);
-    context.dispatch(userAct.signin, { id: user.id, email: user.email });
-  },
-  async signin(context, email: string, password: string) {
-    const { user } = await supabase.auth.signIn({ email, password });
-    context.dispatch(userAct.signin, { id: user.id, email: user.email });
-  },
-  async signout(context) {
-    await supabase.auth.signOut();
-    context.dispatch(userAct.signout, {});
-  },
-});
+const action = actionCreatorFactory();
 
-export const userAct = actions("user", {
-  setUser: action<IState>(),
-  signup: action<IState>(),
-  signin: action<IState>(),
-  signout: action(),
-});
+const userAct = {
+  setUser: action<IUser>("SET_USER"),
+  signup: action<IUser>("SIGN_UP"),
+  signin: action<IUser>("SIGN_IN"),
+  signout: action("SIGN_OUT"),
+};
 
-type IState = {
+export type IUser = {
   id: string;
   email: string;
 };
 
-export const userStore = reducerStore<IState>("user", () => ({
-  id: null,
-  email: "",
-}))
-  .listen(userAct.setUser, (_, { id, email }) => ({
-    id,
-    email,
-  }))
-  .listen(userAct.signup, (_, { id, email }) => ({
-    id,
-    email,
-  }))
-  .listen(userAct.signin, (_, { id, email }) => ({
-    id,
-    email,
-  }))
-  .listen(userAct.signout, () => ({
-    id: null,
-    email: "",
+const init: IUser = { id: null, email: "" };
+
+export const userReducer = reducerWithInitialState(init)
+  .cases(
+    [userAct.setUser, userAct.signin, userAct.signup],
+    (state, payload) => ({
+      ...state,
+      ...payload,
+    })
+  )
+  .case(userAct.signout, () => ({
+    ...init,
   }));
+
+export const userOps = {
+  setUser: (dispatch: Dispatch) => {
+    const { id, email } = supabase.auth.user();
+    dispatch(userAct.setUser({ id, email }));
+  },
+  signup: (email: string, password: string) => async (dispatch: Dispatch) => {
+    const { user } = await supabase.auth.signUp({ email, password });
+    await supabase.from("users").insert([{ id: user.id, email: user.email }]);
+    dispatch(userAct.signin({ id: user.id, email: user.email }));
+  },
+  signin: (email: string, password: string) => async (dispatch: Dispatch) => {
+    const { user } = await supabase.auth.signIn({ email, password });
+    dispatch(userAct.signin({ id: user.id, email: user.email }));
+  },
+  signout: async (dispatch: Dispatch) => {
+    await supabase.auth.signOut();
+    dispatch(userAct.signout);
+  },
+};

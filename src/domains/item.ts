@@ -1,10 +1,11 @@
-import { actions, operations, reducerStore } from "@fleur/fleur";
+import actionCreatorFactory from "typescript-fsa";
+import { reducerWithInitialState } from "typescript-fsa-reducers";
 
-export const itemOps = operations({});
+const action = actionCreatorFactory();
 
-export const itemAct = actions("item", {});
+export const itemAct = {};
 
-type IState = {
+export type IItem = {
   id: number;
   name: string;
   isExp: boolean;
@@ -12,4 +13,6 @@ type IState = {
   num: number;
 };
 
-export const itemStore = reducerStore<IState[]>("item", () => []);
+const init: IItem[] = [];
+
+export const itemReducer = reducerWithInitialState(init);

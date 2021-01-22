@@ -1,9 +1,10 @@
-import { supabase } from "../util/supabase";
+import { useQueryClient } from "react-query";
+import { userAction } from "../util/user";
 
 export const Header = () => {
+  const quelyClient = useQueryClient();
   const handleSignout = async () => {
-    const { error } = await supabase.auth.signOut();
-    console.error(error);
+    quelyClient.setQueryData("user", userAction.signout);
   };
 
   return (

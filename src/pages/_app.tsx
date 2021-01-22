@@ -24,7 +24,6 @@ export async function getStaticProps() {
   await queryClient.prefetchQuery("user", userAction.setUser, {
     initialData: initUser,
   });
-  console.log(queryClient.getQueryData("user"));
 
   return {
     props: {

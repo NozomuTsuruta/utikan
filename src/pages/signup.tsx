@@ -14,7 +14,7 @@ const Signup: NextPage = () => {
   const { register, handleSubmit } = useForm<IForm>();
   const queryClient = useQueryClient();
   const handleSignup = ({ email, password }: IForm) => {
-    queryClient.setQueryData("user", userAction.signup(email, password));
+    queryClient.setQueryData("user", () => userAction.signup(email, password));
   };
 
   const inputList = [

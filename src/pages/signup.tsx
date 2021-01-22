@@ -2,7 +2,7 @@ import { useFleurContext } from "@fleur/react";
 import { NextPage } from "next";
 import { useForm } from "react-hook-form";
 import { Form } from "../components/Form";
-import { userOps } from "../domains/user";
+import { userOps } from "../util/user";
 
 type IForm = {
   email: string;

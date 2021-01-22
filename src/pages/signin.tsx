@@ -1,8 +1,7 @@
-import { useFleurContext } from "@fleur/react";
 import { NextPage } from "next";
 import { useForm } from "react-hook-form";
+import { useQuery } from "react-query";
 import { Form } from "../components/Form";
-import { userOps } from "../domains/user";
 
 type IForm = {
   email: string;
@@ -11,7 +10,7 @@ type IForm = {
 
 const Signin: NextPage = () => {
   const { register, handleSubmit } = useForm<IForm>();
-  const { executeOperation } = useFleurContext();
+  useQuery()
 
   const handleSignin = async ({ email, password }: IForm) => {
     executeOperation(userOps.signin, email, password);

@@ -1,8 +1,8 @@
-import { useFleurContext } from "@fleur/react";
 import { NextPage } from "next";
 import { useForm } from "react-hook-form";
+import { useQueryClient } from "react-query";
 import { Form } from "../components/Form";
-import { userOps } from "../util/user";
+import { userAction } from "../util/user";
 
 type IForm = {
   email: string;
@@ -12,10 +12,9 @@ type IForm = {
 
 const Signup: NextPage = () => {
   const { register, handleSubmit } = useForm<IForm>();
-  const { executeOperation } = useFleurContext();
-
+  const queryClient = useQueryClient();
   const handleSignup = ({ email, password }: IForm) => {
-    executeOperation(userOps.signup, email, password);
+    queryClient.setQueryData("user", userAction.signup(email, password));
   };
 
   const inputList = [

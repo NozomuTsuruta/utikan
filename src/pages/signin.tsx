@@ -1,7 +1,8 @@
 import { NextPage } from "next";
 import { useForm } from "react-hook-form";
-import { useQuery } from "react-query";
+import { useQueryClient } from "react-query";
 import { Form } from "../components/Form";
+import { userAction } from "../util/user";
 
 type IForm = {
   email: string;
@@ -10,11 +11,12 @@ type IForm = {
 
 const Signin: NextPage = () => {
   const { register, handleSubmit } = useForm<IForm>();
-  useQuery()
-
-  const handleSignin = async ({ email, password }: IForm) => {
-    executeOperation(userOps.signin, email, password);
+  const queryClient = useQueryClient();
+  const handleSignin = ({ email, password }: IForm) => {
+    queryClient.setQueryData("user", userAction.signin(email, password));
   };
+
+  console.log(queryClient.getQueryData("user"));
 
   const inputList = [
     { type: "email", name: "email", ref: register },

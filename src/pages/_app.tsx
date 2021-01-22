@@ -3,7 +3,7 @@ import { QueryClient, QueryClientProvider } from "react-query";
 import { dehydrate, Hydrate } from "react-query/hydration";
 import { ReactQueryDevtools } from "react-query/devtools";
 import "../styles/tailwind.css";
-import { userAction } from "../util/user";
+import { initUser, userAction } from "../util/user";
 
 const queryClient = new QueryClient();
 
@@ -21,10 +21,10 @@ export default function App({ Component, pageProps }: AppProps) {
 export async function getStaticProps() {
   const queryClient = new QueryClient();
 
-  const user = await queryClient.prefetchQuery("user", userAction.setUser, {
-    initialData: ,
+  await queryClient.prefetchQuery("user", userAction.setUser, {
+    initialData: initUser,
   });
-  console.log(user);
+  console.log(queryClient.getQueryData("user"));
 
   return {
     props: {

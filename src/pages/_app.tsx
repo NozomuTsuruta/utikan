@@ -1,33 +1,24 @@
 import { AppProps } from "next/app";
 import { QueryClient, QueryClientProvider } from "react-query";
-import { dehydrate, Hydrate } from "react-query/hydration";
+import { Hydrate } from "react-query/hydration";
 import { ReactQueryDevtools } from "react-query/devtools";
 import "../styles/tailwind.css";
-import { initUser, userAction } from "../util/user";
+import { supabase } from "../util/supabase";
+import { Header } from "../components/Header";
 
 const queryClient = new QueryClient();
 
 export default function App({ Component, pageProps }: AppProps) {
+  supabase.auth.onAuthStateChange((event, session) => {
+    queryClient.setQueryData("user", session?.user);
+  });
   return (
     <QueryClientProvider client={queryClient}>
       <Hydrate state={pageProps.dehydratedState}>
+        <Header />
         <Component {...pageProps} />
       </Hydrate>
       <ReactQueryDevtools />
     </QueryClientProvider>
   );
-}
-
-export async function getStaticProps() {
-  const queryClient = new QueryClient();
-
-  await queryClient.prefetchQuery("user", userAction.setUser, {
-    initialData: initUser,
-  });
-
-  return {
-    props: {
-      dehydratedState: dehydrate(queryClient),
-    },
-  };
 }

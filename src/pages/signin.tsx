@@ -1,8 +1,8 @@
 import { NextPage } from "next";
 import { useForm } from "react-hook-form";
-import { useQueryClient } from "react-query";
 import { Form } from "../components/Form";
 import { userAction } from "../util/user";
+import { supabase } from "../util/supabase";
 
 type IForm = {
   email: string;
@@ -11,10 +11,10 @@ type IForm = {
 
 const Signin: NextPage = () => {
   const { register, handleSubmit } = useForm<IForm>();
-  const queryClient = useQueryClient();
   const handleSignin = ({ email, password }: IForm) => {
-    queryClient.fetchQuery("user", () => userAction.signin(email, password));
+    userAction.signin(email, password);
   };
+  console.log(supabase.auth.user());
 
   const inputList = [
     { type: "email", name: "email", ref: register },
@@ -26,7 +26,7 @@ const Signin: NextPage = () => {
       <Form
         onSubmit={handleSubmit(handleSignin)}
         inputList={inputList}
-        buttonText="サインアップ"
+        buttonText="サインイン"
       />
     </div>
   );

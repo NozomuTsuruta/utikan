@@ -1,10 +1,8 @@
-import { useQueryClient } from "react-query";
 import { userAction } from "../util/user";
 
 export const Header = () => {
-  const quelyClient = useQueryClient();
   const handleSignout = async () => {
-    quelyClient.fetchQuery("user", userAction.signout);
+    userAction.signout();
   };
 
   return (

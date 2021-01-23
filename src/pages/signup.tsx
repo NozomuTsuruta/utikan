@@ -1,6 +1,5 @@
 import { NextPage } from "next";
 import { useForm } from "react-hook-form";
-import { useQueryClient } from "react-query";
 import { Form } from "../components/Form";
 import { userAction } from "../util/user";
 
@@ -12,9 +11,8 @@ type IForm = {
 
 const Signup: NextPage = () => {
   const { register, handleSubmit } = useForm<IForm>();
-  const queryClient = useQueryClient();
   const handleSignup = ({ email, password }: IForm) => {
-    queryClient.fetchQuery("user", () => userAction.signup(email, password));
+    userAction.signup(email, password);
   };
 
   const inputList = [

@@ -2,7 +2,6 @@ import { NextPage } from "next";
 import { useForm } from "react-hook-form";
 import { Form } from "../components/Form";
 import { userAction } from "../util/user";
-import { supabase } from "../util/supabase";
 
 type IForm = {
   email: string;
@@ -14,7 +13,6 @@ const Signin: NextPage = () => {
   const handleSignin = ({ email, password }: IForm) => {
     userAction.signin(email, password);
   };
-  console.log(supabase.auth.user());
 
   const inputList = [
     { type: "email", name: "email", ref: register },

@@ -4,7 +4,7 @@ import { userAction } from "../util/user";
 export const Header = () => {
   const quelyClient = useQueryClient();
   const handleSignout = async () => {
-    quelyClient.setQueryData("user", userAction.signout);
+    quelyClient.fetchQuery("user", userAction.signout);
   };
 
   return (

@@ -23,8 +23,10 @@ export const userAction = {
       return { id: user.id, email: user.email };
     }
   },
-  signout: async () => {
-    await supabase.auth.signOut();
-    return initUser;
+  signout: () => {
+    return new Promise((resolve, reject) => {
+      supabase.auth.signOut();
+      resolve(initUser);
+    });
   },
 };

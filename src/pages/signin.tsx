@@ -13,10 +13,8 @@ const Signin: NextPage = () => {
   const { register, handleSubmit } = useForm<IForm>();
   const queryClient = useQueryClient();
   const handleSignin = ({ email, password }: IForm) => {
-    queryClient.setQueryData("user", () => userAction.signin(email, password));
+    queryClient.fetchQuery("user", () => userAction.signin(email, password));
   };
-
-  console.log(queryClient.getQueryData("user"));
 
   const inputList = [
     { type: "email", name: "email", ref: register },

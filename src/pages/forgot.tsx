@@ -17,13 +17,11 @@ const Forgot: NextPage = () => {
   const inputList = [{ type: "email", name: "email", ref: register }];
 
   return (
-    <div>
-      <Form
-        onSubmit={handleSubmit(handleResetPassword)}
-        inputList={inputList}
-        buttonText="パスワード再設定メール送信"
-      />
-    </div>
+    <Form
+      onSubmit={handleSubmit(handleResetPassword)}
+      inputList={inputList}
+      buttonText="パスワード再設定メール送信"
+    />
   );
 };
 

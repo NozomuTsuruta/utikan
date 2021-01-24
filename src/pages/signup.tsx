@@ -22,13 +22,11 @@ const Signup: NextPage = () => {
   ];
 
   return (
-    <div>
-      <Form
-        onSubmit={handleSubmit(handleSignup)}
-        inputList={inputList}
-        buttonText="サインアップ"
-      />
-    </div>
+    <Form
+      onSubmit={handleSubmit(handleSignup)}
+      inputList={inputList}
+      buttonText="サインアップ"
+    />
   );
 };
 
